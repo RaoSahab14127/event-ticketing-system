@@ -10,3 +10,14 @@ export const addEvent = async(req, res)=>{
         console.log("error occur")
     }
 }
+
+export const getEvent = async(req, res)=>{
+    console.log(req.params.id)
+    try {
+        const newEvent = new eventModal(req.body)
+        await newEvent.save();
+        res.status(201).send("event added to database")        
+    } catch (error) {
+        console.log("error occur")
+    }
+}
