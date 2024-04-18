@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import upload from '../utits/uploads.js'
 import { Row } from 'react-bootstrap';
 import { appLogger } from '../../helpers/common';
-import { UploadFileApi, getFileApi } from '../api/ApiMethods';
-import { addEvent, getLatestEventId } from '../../helpers/contractInteraction';
+import { UploadFileApi} from '../api/ApiMethods';
+import { addEvent, getNextAvailableEventId } from '../../helpers/contractInteraction';
 import {
   AppConstants,
   AppText,
@@ -31,29 +32,24 @@ export default function AddEventModal(props) {
   }
 
   const uploadImage = async (selectedFile) => {
+    upload(selectedFile)
+    .then((resp) => {
 
-    const eventId = parseInt(await getLatestEventId())
-
-    UploadFileApi(selectedFile, eventId + 1)
-      .then((resp) => {
-
-        if (resp) {
-          getFileApi(eventId + 1)
-            .then((data) => {
-              setEvent({ ...event, img_url: data.image_path, event_img: selectedFile })
-
-            })
-        }
-      })
-
-
+      if (resp) {
+        setEvent({ ...event, img_url: resp })
+      }
+    })
+    
   }
 
-  const handleAddEvent = () => {
+  const handleAddEvent =async () => {
+    const evenid = await getNextAvailableEventId()
+       
+      
+    
 
     
-    if (validateFieldsGlobal(event)) {
-   
+    if ((event)) {
       if (moment(event.event_end_time).isAfter(event.event_start_time)) {
         const body = {
           imgUrl: event.img_url,
@@ -66,6 +62,13 @@ export default function AddEventModal(props) {
           eventEndTime: event.event_end_time,
           from: selectedAccount
         }
+        const body2 = {
+          event_id:  Number(evenid),
+          image_url: event.img_url,
+          title: event.title,
+          des: event.description,
+        }
+        UploadFileApi(body2)
        
         addEvent(body)
           .then((resp) => {
@@ -167,7 +170,7 @@ export default function AddEventModal(props) {
                   <img
                     className='  '
                     style={{ width: "200px", height: "200px", objectFit: "cover", alignSelf: 'center', backgroundColor: "red" }}
-                    src={AppConstants.localImagesFolder + event.img_url}
+                    src={event.img_url}
                   // src={event.img_url}
                   />
                 </div>

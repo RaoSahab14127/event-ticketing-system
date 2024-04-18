@@ -1,23 +1,19 @@
 import { AppConstants } from "../../helpers/AppConstants";
 
-export const UploadFileApi = (selectedFile, fileId) => {
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-
-    const requestOptions = {
+export const UploadFileApi = async (x) => {
+    
+ const requestOptions = {
         method: 'POST',
-        body: formData
+        body: new URLSearchParams({
+            'event_id':x.event_id,    
+            'des':x.des,
+            'title':x.title,    
+            'image_url': x.image_url,
+ 
+        })
     };
     
-    return fetch(`${AppConstants.baseURL + AppConstants.uploadImage}${fileId}`, requestOptions)
-        .then(response => response.json())
-}
-
-export const getFileApi = async (fileId) => {
-    const requestOptions = {
-        method: 'GET',
-    };
-
-    return fetch(`${AppConstants.baseURL + AppConstants.getImage}${fileId}`, requestOptions)
-        .then(response => response.json())
+    const response = await fetch(`http://localhost:8000/api/uploads`, requestOptions);
+    return await response.json("done");
+    
 }
