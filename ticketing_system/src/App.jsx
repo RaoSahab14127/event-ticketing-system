@@ -7,15 +7,17 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import SecondaryButton from './components/SecondaryButton'
 import BuyTicketModal from './components/BuyTicketModal'
 import AddEventModal from './components/AddEventModal'
+import EditEventModal from './components/editEventModal.jsx'
 import Card from './components/Card'
 import Home from './components/Home'
 import moment from 'moment';
-
+import {getFileApi} from "./api/ApiMethods.js"
 function App() {
   const [eventsList, setEventsList] = useState([])
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [showAddEvent, setShowAddEvent] = useState(false)
   const [showBuyTicket, setShowBuyTicket] = useState(false)
+  const [showEdit, setShowEdit] = useState(false)
   const [hasProvider, setHasProvider] = useState(null)
   const initialState = { accounts: [] };
   const [wallet, setWallet] = useState(initialState);
@@ -79,23 +81,21 @@ function App() {
   const handleAllEvents = async () => {
     var finalArray = []
     const latestEventId = await getLatestEventId()
-    console.log(" ==== latestEventId", latestEventId)
-
     for (let index = 1; index <= parseInt(latestEventId); index++) {
+      const mongdata = await getFileApi(index)
+
       await getEventDetails(index)
         .then((resp) => {
-          console.log("getEventDetails resp", resp);
-          finalArray.push({ ...resp, id: index })
+          
+          finalArray.push({ ...resp, id: index,des:mongdata[0].des,title:mongdata[0].title , image_url:mongdata[0].image_url })
         })
         .catch((error) => {
           console.log("getEventDetails error", error);
         })
     }
-
     setEventsList(finalArray);
   }
 
-  console.log("eventsList", eventsList);
   return (
     <div className='body'>
       {!window.ethereum && <div><p className='error-alert'>{AppText.to_use_this_web_app}</p></div>}
@@ -142,6 +142,8 @@ function App() {
                     item={item}
                     setShowBuyTicket={setShowBuyTicket}
                     setSelectedEvent={setSelectedEvent}
+                    setShowEdit = {setShowEdit}
+                    selectedAccount={wallet.accounts.length > 0 ? wallet.accounts[0] : ""}
                     showBuy={false}
                   />
                 ) :
@@ -160,6 +162,8 @@ function App() {
                     item={item}
                     setShowBuyTicket={setShowBuyTicket}
                     setSelectedEvent={setSelectedEvent}
+                    setShowEdit = {setShowEdit}
+                    selectedAccount={wallet.accounts.length > 0 ? wallet.accounts[0] : ""} // save it in another string this is for testing
                     showBuy={false}
                   />
                 ) :
@@ -179,6 +183,9 @@ function App() {
                     item={item}
                     setShowBuyTicket={setShowBuyTicket}
                     setSelectedEvent={setSelectedEvent}
+                    setShowEdit = {setShowEdit}
+                    selectedAccount={wallet.accounts.length > 0 ? wallet.accounts[0] : ""}
+                    
                   />
                 ) :
               <h5 className='text-center '>{AppText.no_events_found}</h5>
@@ -258,6 +265,15 @@ function App() {
         selectedEvent={selectedEvent}
         selectedAccount={wallet.accounts.length > 0 ? wallet.accounts[0] : ""}
         updateEvents={() => handleAllEvents()}
+      />
+      <EditEventModal
+      show={showEdit}
+      onHide={() => setShowEdit(false)}
+      selectedEvent={selectedEvent}
+      selectedAccount={wallet.accounts.length > 0 ? wallet.accounts[0] : ""}
+      updateEvents={() => handleAllEvents()}
+      
+      
       />
     </div>
   )

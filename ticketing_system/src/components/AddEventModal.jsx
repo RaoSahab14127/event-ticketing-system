@@ -52,9 +52,6 @@ export default function AddEventModal(props) {
     if ((event)) {
       if (moment(event.event_end_time).isAfter(event.event_start_time)) {
         const body = {
-          imgUrl: event.img_url,
-          title: event.title,
-          description: event.description,
           ticketCount: event.ticket_count,
           isActive: true,
           ticketPrice: event.ticket_price,

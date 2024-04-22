@@ -25,8 +25,6 @@ function Home() {
     setWallet({ accounts });
   };
 
-  console.log(wallet)
-
   const handleConnect = async () => {
     try {
       let accounts = await window.ethereum.request({

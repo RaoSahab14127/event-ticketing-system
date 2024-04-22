@@ -27,9 +27,7 @@ export const getServiceProviderWallet = async () => {
 };
 
 export const addEvent = async ({
-    imgUrl,
-    title,
-    description,
+
     ticketCount,
     isActive,
     ticketPrice,
@@ -43,9 +41,7 @@ export const addEvent = async ({
     // REVIEW: had a problem with using too many arguments for the addEvent() function therefore I'm calling update function as well which will add a eventStartDate to the event profile.
     await eventManagementContract.methods.addEvent(
         Number(eventId),
-        imgUrl,
-        title,
-        description,
+
         ticketCount,
         isActive,
         ticketPrice,
@@ -56,9 +52,7 @@ export const addEvent = async ({
         .then(async (gasEstimate) => {
             await eventManagementContract.methods.addEvent(
                 Number(eventId),
-                imgUrl,
-                title,
-                description,
+
                 ticketCount,
                 isActive,
                 ticketPrice,
@@ -115,9 +109,7 @@ export const getEventDetails = async (eventId) => {
 
 export const updateEvent = async (
     eventId,
-    imgUrl,
-    title,
-    description,
+
     isActive,
     ticketPrice,
     eventStartTime,
@@ -126,9 +118,7 @@ export const updateEvent = async (
 ) => {
     let transaction = await eventManagementContract.methods.updateEvent(
         eventId,
-        imgUrl,
-        title,
-        description,
+
         isActive,
         ticketPrice,
         BigInt(convertDateToTimestamp(eventStartTime)),

@@ -20,3 +20,13 @@ export const getEvent = async(req, res)=>{
         console.log("error our")
     }
 }
+
+export const putEvent = async(req, res)=>{
+    const id = Number(req.params.id)
+    try {
+        const event = await eventModal.findOneAndUpdate({ event_id : id}, {$set:{image_url: req.body.image_url, title: req.body.title, des: req.body.des}} );
+        res.status(200).send({'result': "Updated"});         
+    } catch (error) {
+        console.log("error our")
+    }
+}

@@ -14,32 +14,18 @@ function EventForm(props) {
             ...formData,
             [name]: value,
         });
-        console.log(formData)
+
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        console.log("button clicked!")
-        console.log(event.target)
-
-        // try {
-        //   const accounts = await web3.eth.getAccounts();
-        //   await contract.methods
-        //     .addEvent(id, imgUrl, title, description, isActive, ticketPrice)
-        //     .send({ from: accounts[0] });
-
-        //   // Event added successfully, you can add additional logic here.
-        //   console.log('Event added successfully');
-        // } catch (error) {
-        //   console.error('Error adding event:', error);
-        // }
     };
 
     return (
         <div style={{ backgroundColor: "aliceblue", padding: "10px", borderRadius: "7px", border: "3px solid lightblue" }}>
             <h2>Event Submission Form</h2>
-            <Form onClick={(e) => { e.preventDefault(); console.log(e.target.value); handleSubmit(e) }}>
+            <Form onClick={(e) => { e.preventDefault(); handleSubmit(e) }}>
                 <Form.Group className="mb-3" controlId="formEventId" onChange={(e) => handleInputChange(e)}>
                     <Form.Label>ID: </Form.Label>
                     <Form.Control type="number" name="id" min={0 /*get min from*/} placeholder="Event ID" />

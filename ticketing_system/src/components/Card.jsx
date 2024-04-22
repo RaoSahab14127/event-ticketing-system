@@ -1,35 +1,37 @@
-import React from 'react'
+
+import React, { useState, useEffect } from 'react'
 import { AppConstants, AppText, handleDateTime } from '../../helpers/AppConstants'
 import PrimaryButton from './PrimaryButton'
+import {getEventDetails} from "../../helpers/contractInteraction.jsx"
 
-export default function Card({ item, setShowBuyTicket, setSelectedEvent, showBuy = true }) {
-    const { description, eventEndTime, eventStartTime, img_url, ticketCount, ticket_price, title } = item
 
-    const handleImage = (event_image) => {
-        if (event_image.includes("http")) {
-            return event_image
-        } else {
-            return AppConstants.localImagesFolder + event_image
-        }
+export default function Card({ item, setShowBuyTicket, setShowEdit, setSelectedEvent, selectedAccount, showBuy = true }) {
+    const [show, setShow] = useState(false)
+    const { description, eventEndTime, eventStartTime, image_url, ticketCount, ticket_price, title, id} = item
+    useEffect(()=>{
+        async function check() {
+            let result = await getEventDetails(id)
+            if ((result.organizer).toLowerCase() == selectedAccount){  
+               setShow(true)
+            }
+    
+       }
+       check()
     }
+        
+        
+        , [show, selectedAccount]);
     return (
         <div className="col-lg-4 col-md-6">
             <div className="hotel">
                 <div className="hotel-img">
                     <img
-                        src={handleImage(img_url)}
+                        src={(image_url)}
                         alt="Hotel 1"
                         className="img-fluid"
                     />
                 </div>
                 <h3><a href="#">{title}</a></h3>
-                {/* <div className="stars">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                </div> */}
                 <p>{description}</p>
                 <EventDetailItem
                     title={AppText.tickets}
@@ -55,8 +57,20 @@ export default function Card({ item, setShowBuyTicket, setSelectedEvent, showBuy
                         handleOnClick={() => {
                             setSelectedEvent(item)
                             setShowBuyTicket(true)
+                            
                         }}
                     />
+                }
+                {( show  ) ?(
+                    <PrimaryButton
+                        btnTitle={"Edit"}
+                        className='p-2 w-100 rounded-1  '
+                        bodyClass='m-3'
+                        handleOnClick={() => {
+                            setSelectedEvent(item)
+                            setShowEdit(true)
+                        }}
+                    />):""
                 }
             </div>
         </div>
@@ -71,3 +85,4 @@ const EventDetailItem = ({ title = "", desc = "" }) => {
         </div>
     )
 }
+

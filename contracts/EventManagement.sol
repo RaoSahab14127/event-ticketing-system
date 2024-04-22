@@ -64,7 +64,6 @@ contract EventManagement {
         _;
     }
 
-    // ===================== METHODS =====================
 
     constructor() {
         // Set the deployer as the service provider
@@ -74,105 +73,7 @@ contract EventManagement {
             middlemanCutPercentage: 20 // 20% cut given to middleman
         });
 
-        // adding sample event at index 0
-        // Event storage newEvent0 = events[0];
-        // newEvent0.id = 0;
-        // newEvent0.img_url = "https://trufflesuite.com/assets/logo.png";
-        // newEvent0.title = "Web3 Service Start";
-        // newEvent0.description = "Commemoration Event";
-        // newEvent0.is_active = true;
-        // newEvent0.ticket_price = 0;
-        // newEvent0.ticketCount = 0;
-        // newEvent0.organizer = payable(msg.sender);
-        // newEvent0.eventStartTime = 0;
-        // newEvent0.eventEndTime = 999999999999;
 
-        // emit EventAdded(0);
-
-        // // adding sample event at index 1
-        // Event storage newEvent1 = events[1];
-        // newEvent1.id = 1;
-        // newEvent1.img_url = "https://media-cdn.tripadvisor.com/media/photo-s/09/97/8c/27/castle-rock-trading-post.jpg";
-        // newEvent1.title = "Enchanted Jazz Night";
-        // newEvent1.description = "Immerse yourself in the magical world of jazz under the stars. Join us for a night of soulful tunes and rhythmic beats.";
-        // newEvent1.is_active = false;
-        // newEvent1.ticket_price = 200000;
-        // newEvent1.ticketCount = 0;
-        // newEvent1.organizer = payable(msg.sender);
-        // newEvent1.eventStartTime = 1701260853;
-        // newEvent1.eventEndTime = 1701260953;
-
-        // emit EventAdded(1);
-
-        // totalEvents++;
-
-        // // adding sample event at index 2
-        // Event storage newEvent2 = events[2];
-        // newEvent2.id = 2;
-        // newEvent2.img_url = "https://technext24.com/wp-content/uploads/2020/10/events.jpeg";
-        // newEvent2.title = "Tech Innovators Summit";
-        // newEvent2.description = "Explore the latest trends and innovations in the tech industry. Join top experts and visionaries for insightful discussions and networking.";
-        // newEvent2.is_active = true;
-        // newEvent2.ticket_price = 250000;
-        // newEvent2.ticketCount = 150;
-        // newEvent2.organizer = payable(msg.sender);
-        // newEvent2.eventStartTime = 1701260953;
-        // newEvent2.eventEndTime = 1701261053;
-
-        // emit EventAdded(2);
-
-        // totalEvents++;
-        
-        // // adding sample event at index 3
-        // Event storage newEvent3 = events[3];
-        // newEvent3.id = 3;
-        // newEvent3.img_url = "https://artzealous.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-02-at-4.21.26-PM-e1538511906575.png";
-        // newEvent3.title = "Whimsical Art Gala";
-        // newEvent3.description = "Step into a world of whimsy and wonder at our art gala. Marvel at breathtaking artworks and engage with the creative minds behind them.";
-        // newEvent3.is_active = true;
-        // newEvent3.ticket_price = 108000;
-        // newEvent3.ticketCount = 120;
-        // newEvent3.organizer = payable(msg.sender);
-        // newEvent3.eventStartTime = 1701261053;
-        // newEvent3.eventEndTime = 1701261153;
-
-        // emit EventAdded(3);
-
-        // totalEvents++;
-
-        // // adding sample event at index 4
-        // Event storage newEvent4 = events[4];
-        // newEvent4.id = 4;
-        // newEvent4.img_url = "https://i.pinimg.com/originals/be/bd/64/bebd641805f000ba0763d167020e1262.jpg";
-        // newEvent4.title = "Hidden Gem Food Tasting";
-        // newEvent4.description = "Embark on a culinary journey to discover hidden gems in the world of flavors. Savor delectable dishes crafted by talented chefs.";
-        // newEvent4.is_active = false;
-        // newEvent4.ticket_price = 150000;
-        // newEvent4.ticketCount = 0;
-        // newEvent4.organizer = payable(msg.sender);
-        // newEvent4.eventStartTime = 1701261153;
-        // newEvent4.eventEndTime = 1701261253;
-
-        // emit EventAdded(4);
-
-        // totalEvents++;
-
-        // // // adding sample event at index 5
-        // Event storage newEvent5 = events[5];
-        // newEvent5.id = 5;
-        // newEvent5.img_url = "https://www.impactnational.com.au/wp-content/uploads/2022/11/tradeshow-1024x683-2.jpg";
-        // newEvent5.title = "Epic Adventure Expo";
-        // newEvent5.description = "Calling all thrill-seekers! Join us for an epic adventure expo featuring adrenaline-pumping activities and the latest outdoor gear.";
-        // newEvent5.is_active = true;
-        // newEvent5.ticket_price = 0;
-        // newEvent5.ticketCount = 300000;
-        // newEvent5.organizer = payable(msg.sender);
-        // newEvent5.eventStartTime = 1701261253;
-        // newEvent5.eventEndTime = 1701261353;
-
-        // emit EventAdded(5);
-
-        // totalEvents++;
     }
 
     // Function to check and update the status of events
